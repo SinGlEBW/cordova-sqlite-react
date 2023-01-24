@@ -23,7 +23,7 @@ export const checkTableSqlite:commonFunctionSqliteT = (connect, nameTable) => {
               for (let i = 0; i < res.rows.length; i++) {
                 tables.push(res.rows.item(i))
               }
-              resolve({ status: true, msg: 'Список найденных таблиц в консоли', tables })
+              resolve({ status: true, msg: 'Список найденных таблиц', tables })
           
             }
   

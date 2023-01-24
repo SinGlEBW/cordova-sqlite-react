@@ -1,11 +1,11 @@
 ## The library is under development and is updated and corrected as needed!
 
-<!-- ###### Create a .env file in the root of the project -->
-<!-- ```env
+###### Create a .env file in the root of the project
+```env
 
   REACT_APP_SQLITE_DB_NAME = 'arm.db'
   REACT_APP_SQLITE_TABLE_SETTINGS = 'Config'  # for using class SLStore
-``` -->
+```
 
 
 ```js
@@ -17,9 +17,11 @@
 
 ```js
 
-    Sqlite.checkTable()//All tables. list in console [{name: 'android_metadata'},{name: 'Config'},{name: 'Test'}]
-    Sqlite.checkTable(nameTable)//checks a specific table.  promise -> { msg: "Таблица Test существует", status: true }
+    Sqlite.openDB()/*default   (nameDbSqlite = (process.env.REACT_APP_SQLITE_DB_NAME as string) || 'default')  */
+    Sqlite.closeDB()
 
+    Sqlite.checkTable()//All tables.  { status: true, msg: 'Список найденных таблиц', tables }
+    Sqlite.checkTable(nameTable)//checks a specific table.  promise -> { msg: "Таблица Test существует", status: true }
     Sqlite.setData(nameTable, payload, options) 
     /* options
       {

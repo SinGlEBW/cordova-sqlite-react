@@ -21,7 +21,7 @@ const checkTableSqlite = (connect, nameTable) => {
                     for (let i = 0; i < res.rows.length; i++) {
                         tables.push(res.rows.item(i));
                     }
-                    resolve({ status: true, msg: 'Список найденных таблиц в консоли', tables });
+                    resolve({ status: true, msg: 'Список найденных таблиц', tables });
                 }
             }, (tx, err) => { console.log(err); });
         }, (err) => { reject({ status: false, msg: `Ошибка транзакции checkTable: ${err}` }); }, () => { console.log('Успешная транзакция checkTable'); });
