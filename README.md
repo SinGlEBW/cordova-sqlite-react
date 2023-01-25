@@ -17,13 +17,19 @@
 
 ```js
 
-    Sqlite.openDB()/*default   (nameDbSqlite = (process.env.REACT_APP_SQLITE_DB_NAME as string) || 'default')  */
+    Sqlite.openDB()/*default   (nameDbSqlite = (process.env.REACT_APP_SQLITE_DB_NAME as string) || 'default.db')  */
     Sqlite.closeDB()
 
     Sqlite.checkTable()//All tables.  { status: true, msg: 'Список найденных таблиц', tables }
     Sqlite.checkTable(nameTable)//checks a specific table.  promise -> { msg: "Таблица Test существует", status: true }
     Sqlite.setData(nameTable, payload, options) 
-    /* options
+    /* 
+      Example payload:
+        {key: 'management', value: [{a: 1},{a: 2}]}
+      
+
+
+      options
       {
         isCreateDate: false //no create column createdAt and updateAt. default: true
         rewriteTable: true; //added request `DROP TABLE IF EXISTS ${nameTable}`

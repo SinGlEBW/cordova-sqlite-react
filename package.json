@@ -1,22 +1,20 @@
 {
-  "name": "cordova-sqlite-react",
-  "author": "SinGlEBW",
-  "version": "1.1.40",
-  "description": "",
-  "main": "./dist/index.js",
-  "types": "./dist/@types/index.d.ts",
- 
- 
-  "scripts": {
-    "tsc": "rm -rf ./dist/* && tsc && cp ./src/common.d.ts ./dist/@types/ && git add . && git ct -m update && git push && npm publish"
-  },
-  "devDependencies": {
-    "@types/node": "^17.0.10"
-  },
-  "license": "ISC",
-  "dependencies": {
-    "tsc": "^2.0.4",
-    "typescript": "^4.5.4",
-    "cordova-sqlite-storage": "^6.0.0"
-  }
+ "name": "cordova-sqlite-react",
+ "author": "SinGlEBW",
+ "version": "1.1.41",
+ "description": "",
+ "main": "./dist/index.js",
+ "types": "./dist/@types/index.d.ts",
+ "scripts": {
+  "tsc": "node ./autoEditVersion.js && rm -rf ./dist/* && tsc && cp ./src/common.d.ts ./dist/@types/ && git add . && git ct -m update && git push && npm publish"
+ },
+ "devDependencies": {
+  "@types/node": "^17.0.10"
+ },
+ "license": "ISC",
+ "dependencies": {
+  "tsc": "^2.0.4",
+  "typescript": "^4.5.4",
+  "cordova-sqlite-storage": "^6.0.0"
+ }
 }
