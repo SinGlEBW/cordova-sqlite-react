@@ -22,13 +22,11 @@
 
     Sqlite.checkTable()//All tables.  { status: true, msg: 'Список найденных таблиц', tables }
     Sqlite.checkTable(nameTable)//checks a specific table.  promise -> { msg: "Таблица Test существует", status: true }
-    Sqlite.setData(nameTable, payload, options) 
+    Sqlite.setData(nameTable, payload, options)
     /* 
       Example payload:
-        {key: 'management', value: [{a: 1},{a: 2}]}
+        {name: 'Jon', age: 30, value: [{a: 1},{a: 2}] }
       
-
-
       options
       {
         isCreateDate: false //no create column createdAt and updateAt. default: true
@@ -39,6 +37,11 @@
     Sqlite.updateData(nameTable, payload, { where, stringWhere, condition })
 
     /*
+
+    Example payload: ()
+      {name: 'Jon', age: 30, value: [{a: 1},{a: 2}] }
+  
+
       {
         where: {name: 'Jon', age: 30} // generate WHERE name="Jon" AND age="30"
         condition: "AND" | "OR" //edit WHERE name="Jon" OR age="30"

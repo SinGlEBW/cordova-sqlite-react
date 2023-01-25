@@ -13,9 +13,7 @@ export const generateSQLUpdate = (nameTable: string, payload: object, {where, co
       arrTotalValuesPayload.push(val);
   }
   defaultSqlStr = defaultSqlStr.replace(/,$/ig, ` ${stringWhere ? stringWhere : 'WHERE'}`);
-  if(stringWhere){
-    defaultSqlStr += stringWhere;
-  }else if(where){
+  if(where){
 
       for(let [key, value] of Object.entries(where)){
         defaultSqlStr += (` ${key}="${value}" ${condition ? condition : 'AND'}`)
@@ -25,7 +23,7 @@ export const generateSQLUpdate = (nameTable: string, payload: object, {where, co
     console.log('Не переданы из аргументов where | stringWhere');
   }
 
-    
+  console.log(`defaultSqlStr `,defaultSqlStr)
   return {
     arrValuesPayload: arrTotalValuesPayload,
     newSQLUpdate: defaultSqlStr
