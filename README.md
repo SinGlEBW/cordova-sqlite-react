@@ -39,8 +39,10 @@
     /*
 
     Example payload: ()
-      {name: 'Jon', age: 30, value: [{a: 1},{a: 2}] }
-  
+     
+      Sqlite.updateData('test', {value: [{a: 4},{a: 2}]}, {where: {name: 'Jon'}})
+      OR
+      Sqlite.updateData('test', {value: [{a: 4},{a: 2}]}, {stringWhere: "WHERE name='Jon'"})
 
       {
         where: {name: 'Jon', age: 30} // generate WHERE name="Jon" AND age="30"
@@ -57,7 +59,7 @@
 
     /*
       {
-        whereArrKey: {name: ['Jon', "Brain"], age: [25, 30]}}
+        whereKey: {name: ['Jon', "Brain"], age: [25, 30]}}
       }
       'DELETE FROM ${nameTable} WHERE name = "Jon" OR name = "Brain", age = "17" OR age = "20"'
     */
