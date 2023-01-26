@@ -2,7 +2,7 @@ import { UpdateWhere } from './../common';
 import { convertByTypeForDB } from '../helpers';
 
 
-export const generateSQLUpdate = (nameTable: string, payload: object, {where, condition, stringWhere}:UpdateWhere): {arrValuesPayload: any[], newSQLUpdate: string} => {
+export const generateSQLUpdate = (nameTable: string, payload: object, {where, condition, stringWhere}:UpdateWhere, isUpdateAt: boolean): {arrValuesPayload: any[], newSQLUpdate: string} => {
   
   let arrTotalValuesPayload:any[] = [];
   let defaultSqlStr = `UPDATE ${nameTable} SET `;
@@ -23,6 +23,9 @@ export const generateSQLUpdate = (nameTable: string, payload: object, {where, co
     console.log('Не переданы из аргументов where | stringWhere');
   }
 
+  if(isUpdateAt){
+    defaultSqlStr = defaultSqlStr.replace(/SET/, "SET updateAt = datetime('now','localtime'),")
+  }
   console.log(`defaultSqlStr `,defaultSqlStr)
   return {
     arrValuesPayload: arrTotalValuesPayload,

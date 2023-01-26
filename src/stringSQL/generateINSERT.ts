@@ -32,7 +32,8 @@ export const generateSQLInsertInto = (nameTable: string, payload: object): {arrV
       totalNewSqlSrt = totalNewSqlSrt.replace(/,$/ig, '');
     }
   }
-
+  //'INSERT INTO test (value) VALUES (?)'
+  console.log(`totalNewSqlSrt: ${totalNewSqlSrt}`)
   return {
     arrValuesPayload: arrTotalValuesPayload,
     newSQLInsert: totalNewSqlSrt

@@ -12,7 +12,7 @@ interface SqliteConstructor {
 };
 
 export class Sqlite {
-
+  private static isCreateDate = true; 
   static openDB = (nameDbSqlite?: string) => openDbSqlite(nameDbSqlite)
   static closeDB = () => window.db ? window.db.close() : console.log('Не возможно закрыть базу');
   
@@ -42,9 +42,16 @@ export class Sqlite {
 
   static updateData:updateDataT = (nameTable, payload, { where, stringWhere, condition }) => {
     return new Promise((resolve, reject) => {
-      updateDataSqlite(Sqlite.openDB(), nameTable, payload, {where, stringWhere, condition})
-      .then(resolve)
+      Sqlite.getData(nameTable, { where, stringWhere, condition })
+      .then(({status, values}) => {
+        let isUpdateAt = values[0] && 'createdAt' in values[0];
+
+        updateDataSqlite(Sqlite.openDB(), nameTable, payload, {where, stringWhere, condition}, isUpdateAt)
+        .then(resolve)
+        .catch(reject)
+      })
       .catch(reject)
+     
     });
   }
 

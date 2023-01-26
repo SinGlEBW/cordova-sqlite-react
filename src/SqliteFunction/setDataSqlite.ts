@@ -15,6 +15,7 @@ export const setDataSqlite:setDataSqliteT = (connect, nameTable, payload, option
         options?.rewriteTable && tx.executeSql(`DROP TABLE IF EXISTS ${nameTable}`);
         // options?.arrSql 
         //TODO: Добавить логику Alter table
+        // UPDATE management SET updateAt = ? WHERE key="listRecords""
 
         tx.executeSql(newSQLCreate);//Если не существует создаст
         tx.executeSql(newSQLInsert, arrValuesPayload);

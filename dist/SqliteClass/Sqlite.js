@@ -7,6 +7,7 @@ const SqliteFunction_1 = require("./../SqliteFunction");
 class Sqlite {
 }
 exports.Sqlite = Sqlite;
+Sqlite.isCreateDate = true;
 Sqlite.openDB = (nameDbSqlite) => (0, SqliteFunction_1.openDbSqlite)(nameDbSqlite);
 Sqlite.closeDB = () => window.db ? window.db.close() : console.log('Не возможно закрыть базу');
 Sqlite.query = (sql) => {
@@ -32,8 +33,13 @@ Sqlite.setData = (nameTable, payload, options) => {
 };
 Sqlite.updateData = (nameTable, payload, { where, stringWhere, condition }) => {
     return new Promise((resolve, reject) => {
-        (0, SqliteFunction_1.updateDataSqlite)(Sqlite.openDB(), nameTable, payload, { where, stringWhere, condition })
-            .then(resolve)
+        Sqlite.getData(nameTable, { where, stringWhere, condition })
+            .then(({ status, values }) => {
+            let isUpdateAt = values[0] && 'createdAt' in values[0];
+            (0, SqliteFunction_1.updateDataSqlite)(Sqlite.openDB(), nameTable, payload, { where, stringWhere, condition }, isUpdateAt)
+                .then(resolve)
+                .catch(reject);
+        })
             .catch(reject);
     });
 };

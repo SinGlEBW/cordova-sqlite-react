@@ -6,9 +6,12 @@ var E_SQLitePayloadType;
     E_SQLitePayloadType["ID"] = "INTEGER PRIMARY KEY";
     E_SQLitePayloadType["TEXT"] = "TEXT NOT NULL";
     E_SQLitePayloadType["INTEGER"] = "INTEGER NOT NULL";
-    E_SQLitePayloadType["createdAt"] = "datetime default current_timestamp";
-    E_SQLitePayloadType["updateAt"] = "datetime default current_timestamp";
+    E_SQLitePayloadType["createdAt"] = "datetime default (datetime('now','localtime'))";
+    E_SQLitePayloadType["updateAt"] = "datetime default (datetime('now','localtime'))";
 })(E_SQLitePayloadType = exports.E_SQLitePayloadType || (exports.E_SQLitePayloadType = {}));
+/*
+  
+*/
 const generateSQLCreateTable = (nameTable, payload, isCreateDate) => {
     let totalNewSqlSrt = '';
     if (!Object.entries(payload).length) {
@@ -26,6 +29,7 @@ const generateSQLCreateTable = (nameTable, payload, isCreateDate) => {
                 totalNewSqlSrt += (typeof value === 'number') ? `${key} ${E_SQLitePayloadType.INTEGER},` : '';
             }
             // totalNewSqlSrt += 'type TEXT NOT NULL,';
+            // TODO: createdAt updateAt - не правильно работают 
             if (isCreateDate !== false) {
                 totalNewSqlSrt += `createdAt ${E_SQLitePayloadType.createdAt},updateAt ${E_SQLitePayloadType.updateAt},`;
             }

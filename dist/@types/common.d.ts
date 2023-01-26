@@ -3,7 +3,6 @@
 export interface returnCommonPropsPromise {
   status: boolean;
   msg: string;
-  tables?:any[]
 }
 
 // export interface returnGetDataSqliteT extends Partial<Pick<returnCommonPropsPromise, 'msg'>>, Omit<returnCommonPropsPromise, 'msg'>{
@@ -36,10 +35,10 @@ export interface setDataSqliteOptions {
 }
 
 
-export type commonFunctionSqliteT = (connect:SQLitePlugin.Database, nameTable?:string) => Promise<returnCommonPropsPromise> 
+export type commonFunctionSqliteT = (connect:SQLitePlugin.Database, nameTable?:string) => Promise<returnCommonPropsPromise & {tables?: string[]}> 
 export type getDataSqliteT = (connect:SQLitePlugin.Database, nameTable:string, params:Params) => Promise<returnGetDataSqliteT> 
 export type setDataSqliteT = (connect:SQLitePlugin.Database, nameTable:string, payload: object, options?:setDataSqliteOptions) => Promise<returnCommonPropsPromise> 
-export type updateDataSqliteT = (connect:SQLitePlugin.Database, nameTable:string, payload: object, {where, condition, stringWhere}: UpdateWhere) => Promise<returnCommonPropsPromise> 
+export type updateDataSqliteT = (connect:SQLitePlugin.Database, nameTable:string, payload: object, {where, condition, stringWhere}: UpdateWhere, isUpdateAt: boolean) => Promise<returnCommonPropsPromise> 
 export type remoteDataSqliteT = (connect:SQLitePlugin.Database, nameTable:string, params:Params) => Promise<returnCommonPropsPromise> 
 
 // export type commonFunctionSqliteT = (connect:SQLitePluginInstance, nameTable?:string) => Promise<returnCommonPropsPromise> 

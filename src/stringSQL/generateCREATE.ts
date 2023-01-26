@@ -2,10 +2,12 @@ export enum E_SQLitePayloadType {
   ID = 'INTEGER PRIMARY KEY',
   TEXT = 'TEXT NOT NULL',
   INTEGER = 'INTEGER NOT NULL',
-  createdAt = 'datetime default current_timestamp',
-  updateAt = 'datetime default current_timestamp',
+  createdAt = "datetime default (datetime('now','localtime'))",
+  updateAt = "datetime default (datetime('now','localtime'))",
 }
-
+/*
+  
+*/
 
 export const generateSQLCreateTable = (nameTable: string, payload: object, isCreateDate?: boolean): {newSQLCreate: string} => {
 
@@ -27,6 +29,7 @@ export const generateSQLCreateTable = (nameTable: string, payload: object, isCre
         totalNewSqlSrt += (typeof value === 'number') ? `${key} ${E_SQLitePayloadType.INTEGER},` : ''
       }
       // totalNewSqlSrt += 'type TEXT NOT NULL,';
+      // TODO: createdAt updateAt - не правильно работают 
       if(isCreateDate !== false){
         totalNewSqlSrt += `createdAt ${E_SQLitePayloadType.createdAt},updateAt ${E_SQLitePayloadType.updateAt},`
       } 

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateSQLUpdate = void 0;
 const helpers_1 = require("../helpers");
-const generateSQLUpdate = (nameTable, payload, { where, condition, stringWhere }) => {
+const generateSQLUpdate = (nameTable, payload, { where, condition, stringWhere }, isUpdateAt) => {
     let arrTotalValuesPayload = [];
     let defaultSqlStr = `UPDATE ${nameTable} SET `;
     for (let key in payload) {
@@ -19,6 +19,9 @@ const generateSQLUpdate = (nameTable, payload, { where, condition, stringWhere }
     }
     else {
         console.log('Не переданы из аргументов where | stringWhere');
+    }
+    if (isUpdateAt) {
+        defaultSqlStr = defaultSqlStr.replace(/SET/, "SET updateAt = datetime('now','localtime'),");
     }
     console.log(`defaultSqlStr `, defaultSqlStr);
     return {

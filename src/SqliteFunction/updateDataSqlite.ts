@@ -5,10 +5,13 @@ import { generateSQLUpdate } from './../stringSQL/generateUpdate';
 
 
 
-export const updateDataSqlite:updateDataSqliteT = (connect, nameTable, payload, {where, condition, stringWhere}) => {
+export const updateDataSqlite:updateDataSqliteT = (connect, nameTable, payload, {where, condition, stringWhere}, isUpdateAt) => {
   return new Promise((resolve, reject) => {
 
-    let { newSQLUpdate, arrValuesPayload } = generateSQLUpdate(nameTable, payload, {where, condition, stringWhere});
+    let { newSQLUpdate, arrValuesPayload } = generateSQLUpdate(nameTable, payload, {where, condition, stringWhere}, isUpdateAt);
+
+    // UPDATE management SET value = ? WHERE key="listRecords"
+// updateAt = datetime('now','localtime')
     
     connect.transaction(
       (tx) => {
