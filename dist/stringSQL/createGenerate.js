@@ -60,33 +60,24 @@ const createGenerateSqlString = (chunkSQL) => {
                     total.defaultSqlStr += (` ${key}="${value}" ${condition ? condition : 'OR'}`);
                 }
             }
-            if (chunkSQL === 'SELECT * FROM') {
-                total.defaultSqlStr = total.defaultSqlStr.replace(/,$/ig, ``);
-            }
-            else {
-                total.defaultSqlStr = total.defaultSqlStr.replace(/(\sAND|\sOR)$/ig, ``);
-            }
+            (chunkSQL === 'SELECT * FROM')
+                ? total.defaultSqlStr = total.defaultSqlStr.replace(/,$/ig, ``)
+                : total.defaultSqlStr = total.defaultSqlStr.replace(/(\sAND|\sOR)$/ig, ``);
         }
         if (ignoreWhere && Object.keys(ignoreWhere).length) {
             checkOptions++;
             whereTotalHelpers({ ob: ignoreWhere, total, condition, ignoreWhere, checkOptions }, ignoreConcatKey);
         }
         if (checkOptions === 0) {
-            console.log(`Доп параметры не переданы, будут удалены все ключи в таблице ${nameTable}`);
+            if (chunkSQL === 'DELETE FROM') {
+                console.log(`Доп параметры не переданы, будут удалены все ключи в таблице ${nameTable}`);
+            }
             total.defaultSqlStr = total.defaultSqlStr.replace(/\sWHERE$/ig, ``);
         }
         total.defaultSqlStr = total.defaultSqlStr.replace(/(\sAND|\sOR)$/ig, ``);
-        if (chunkSQL === 'SELECT * FROM') {
-            return {
-                arrValuesPayload: arrTotalValuesPayload,
-                newSQLString: total.defaultSqlStr
-            };
-        }
-        else {
-            return {
-                newSQLString: total.defaultSqlStr
-            };
-        }
+        return ((chunkSQL === 'SELECT * FROM')
+            ? { arrValuesPayload: arrTotalValuesPayload, newSQLString: total.defaultSqlStr }
+            : { newSQLString: total.defaultSqlStr });
     };
 };
 exports.createGenerateSqlString = createGenerateSqlString;

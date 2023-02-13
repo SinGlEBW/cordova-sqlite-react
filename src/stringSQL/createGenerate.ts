@@ -12,14 +12,12 @@ export const createGenerateSqlString = (chunkSQL:chunkSQLT) => {
     let ignoreStatus = false;
   
     if(ignoreWhere){
-  
       let findItemInx = ignoreWhere[key].findIndex((ignK) => ignK === value);
       if(~findItemInx){
         ignoreStatus = true;
         ignoreWhere[key].splice(findItemInx, 1);
       }
     }
-  
     total.defaultSqlStr += (` ${key} ${ignoreStatus ? '!=' : '='} "${value}" ${condition ? condition : 'OR'}`);
   }
   
@@ -29,19 +27,14 @@ export const createGenerateSqlString = (chunkSQL:chunkSQLT) => {
   
   
   const whereTotalHelpers = ({ob, total, condition, ignoreWhere, checkOptions}, cb?: (...param:any) => void) => {
-  
     let entries = Object.entries(ob) as any;
-    
     for(let [key, value] of entries){
       for(let i = 0; i < value.length; i++){
-  
         cb && typeof cb === 'function' && cb({total, key, value: value[i], condition, ignoreWhere, checkOptions});
-  
       }
       !ignoreWhere && (total.defaultSqlStr = total.defaultSqlStr.replace(/(\sAND|\sOR)$/ig, ``));
       total.defaultSqlStr += ','
     }
-    
     total.defaultSqlStr = total.defaultSqlStr.replace(/,$/ig, ``);
   }
 
@@ -69,25 +62,22 @@ export const createGenerateSqlString = (chunkSQL:chunkSQLT) => {
       console.log('Передан whereKey');
       checkOptions++;
     }else if(where && Object.keys(where).length){
-        checkOptions++;
-  
-        for(let [key, value] of Object.entries(where)){
-          if(chunkSQL === 'SELECT * FROM'){
-            total.defaultSqlStr += (` ${key} = ?,`);
-            let val = convertByTypeForDB(value);
-            arrTotalValuesPayload.push(val);
+      checkOptions++;
 
-          }else{
-            total.defaultSqlStr += (` ${key}="${value}" ${condition ? condition : 'OR'}`);
-          }
-        }
+      for(let [key, value] of Object.entries(where)){
         if(chunkSQL === 'SELECT * FROM'){
-          total.defaultSqlStr = total.defaultSqlStr.replace(/,$/ig, ``);
+          total.defaultSqlStr += (` ${key} = ?,`);
+          let val = convertByTypeForDB(value);
+          arrTotalValuesPayload.push(val);
+
         }else{
-          total.defaultSqlStr = total.defaultSqlStr.replace(/(\sAND|\sOR)$/ig, ``);
+          total.defaultSqlStr += (` ${key}="${value}" ${condition ? condition : 'OR'}`);
         }
-     
-       
+      }
+
+      (chunkSQL === 'SELECT * FROM')
+        ? total.defaultSqlStr = total.defaultSqlStr.replace(/,$/ig, ``)
+        : total.defaultSqlStr = total.defaultSqlStr.replace(/(\sAND|\sOR)$/ig, ``);
         
     }
     
@@ -96,24 +86,18 @@ export const createGenerateSqlString = (chunkSQL:chunkSQLT) => {
       whereTotalHelpers({ob: ignoreWhere, total, condition, ignoreWhere, checkOptions}, ignoreConcatKey)
     }
     if(checkOptions === 0){
-      console.log(`Доп параметры не переданы, будут удалены все ключи в таблице ${nameTable}`);
+      if(chunkSQL === 'DELETE FROM'){
+        console.log(`Доп параметры не переданы, будут удалены все ключи в таблице ${nameTable}`);
+      }
       total.defaultSqlStr = total.defaultSqlStr.replace(/\sWHERE$/ig, ``);
     }
     total.defaultSqlStr = total.defaultSqlStr.replace(/(\sAND|\sOR)$/ig, ``);
 
-    
-    if(chunkSQL === 'SELECT * FROM'){
-      return {
-        arrValuesPayload: arrTotalValuesPayload,
-        newSQLString: total.defaultSqlStr
-      };
-    }else{
-      return {
-        newSQLString: total.defaultSqlStr
-      };
-    }
-
+    return (
+      (chunkSQL === 'SELECT * FROM') 
+      ? { arrValuesPayload: arrTotalValuesPayload, newSQLString: total.defaultSqlStr } 
+      : { newSQLString: total.defaultSqlStr }
+    )
   }
-  
 }
 
