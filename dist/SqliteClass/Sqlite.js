@@ -4,6 +4,16 @@ exports.Sqlite = void 0;
 const querySqlite_1 = require("./../SqliteFunction/querySqlite");
 const SqliteFunction_1 = require("./../SqliteFunction");
 ;
+const getStatusAndDataJson = (str) => {
+    let data = null;
+    try {
+        data = JSON.parse(str);
+    }
+    catch (e) {
+        return [false, data];
+    }
+    return [true, data];
+};
 class Sqlite {
 }
 exports.Sqlite = Sqlite;
@@ -43,11 +53,30 @@ Sqlite.updateData = (nameTable, payload, { where, stringWhere, condition }) => {
             .catch(reject);
     });
 };
-Sqlite.getData = (nameTable, params) => {
+Sqlite.getData = (nameTable, params, isParse = false) => {
     return new Promise((resolve, reject) => {
         let propsParams = (params) ? params : {};
         (0, SqliteFunction_1.getDataSqlite)(Sqlite.openDB(), nameTable, propsParams) //{where, whereKey, ignoreWhere, stringWhere, condition}
-            .then(resolve)
+            // .then(resolve)
+            .then((data) => {
+            if (isParse) {
+                if (data.values.length) {
+                    for (let i = 0; i < data.values.length; i++) {
+                        let ob = data.values[i];
+                        for (let [key, value] of Object.entries(ob)) {
+                            if (['createdAt', 'updateAt', 'id'].includes(key)) {
+                                continue;
+                            }
+                            let [isJson, parseData] = getStatusAndDataJson(value);
+                            if (isJson) {
+                                data.values[i][key] = parseData;
+                            }
+                        }
+                    }
+                }
+            }
+            resolve(data);
+        })
             .catch(reject);
     });
 };

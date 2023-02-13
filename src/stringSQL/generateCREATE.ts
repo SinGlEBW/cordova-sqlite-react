@@ -12,11 +12,10 @@ export enum E_SQLitePayloadType {
 export const generateSQLCreateTable = (nameTable: string, payload: object, isCreateDate?: boolean): {newSQLCreate: string} => {
 
   let totalNewSqlSrt = '';
-
   if(!Object.entries(payload).length){ throw new Error('payload пуст'); } 
 
   let defaultSqlStr = `CREATE TABLE IF NOT EXISTS ${nameTable} ()`;//
-  for(let i = 0; i < defaultSqlStr.length; i++ ){
+  for( let i = 0; i < defaultSqlStr.length; i++ ){
     totalNewSqlSrt += defaultSqlStr[i];
 
     if(defaultSqlStr[i] === '('){

@@ -49,7 +49,7 @@ export type remoteDataSqliteT = (connect:SQLitePlugin.Database, nameTable:string
 
 /*#############----------<{ Class Sqlite }>-----------########## */
 export type commonMethodSqliteT = (nameTable?:string) => Promise<returnCommonPropsPromise> 
-export type getDataT = (nameTable:string, params?:Params) => Promise<returnGetDataSqliteT> 
+export type getDataT = (nameTable:string, params?:Params, isParse?: boolean) => Promise<returnGetDataSqliteT> 
 export type setDataT = (nameTable:string, payload: object, options?:setDataSqliteOptions) => Promise<returnCommonPropsPromise> 
 export type updateDataT = (nameTable:string, payload: object, {where, condition, stringWhere}: UpdateWhere) => Promise<returnCommonPropsPromise> 
 export type remoteDataT = (nameTable:string, params?:Params) => Promise<returnCommonPropsPromise> 

@@ -1,4 +1,5 @@
 export const convertByTypeForDB = (value) => {
+
   let val: any; 
   if(typeof value === "object" || typeof value === "boolean"){
     val = JSON.stringify(value) 
@@ -8,6 +9,7 @@ export const convertByTypeForDB = (value) => {
     val = value;
   }
   return val;
+  
 }
 
 export const convertByTypeFromDB = (value) => {

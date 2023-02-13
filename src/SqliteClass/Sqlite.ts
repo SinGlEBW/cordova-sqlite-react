@@ -11,6 +11,13 @@ interface SqliteConstructor {
   column: {[key: string]: "ID" | "TEXT" | "INTEGER"};
 };
 
+const getStatusAndDataJson = (str) => {
+  let data = null;
+  try { data = JSON.parse(str); } 
+  catch (e) { return [false, data]; }
+  return [true, data];
+}
+
 export class Sqlite {
   private static isCreateDate = true; 
   static openDB = (nameDbSqlite?: string) => openDbSqlite(nameDbSqlite)
@@ -55,11 +62,32 @@ export class Sqlite {
     });
   }
 
-  static getData:getDataT = (nameTable, params) => {
+  static getData:getDataT = (nameTable, params, isParse = false) => {
     return new Promise((resolve, reject) => {
       let propsParams = (params) ? params : {};
+
       getDataSqlite(Sqlite.openDB(), nameTable, propsParams)//{where, whereKey, ignoreWhere, stringWhere, condition}
-      .then(resolve)
+      // .then(resolve)
+      .then((data) => {
+        if(isParse){
+          if(data.values.length){
+            for(let i = 0; i < data.values.length; i++){
+              let ob = data.values[i];
+              for(let [key, value] of Object.entries(ob)){
+                if(['createdAt', 'updateAt', 'id'].includes(key)){
+                  continue;
+                }
+                let [isJson, parseData] = getStatusAndDataJson(value);
+                if(isJson){
+                  data.values[i][key] = parseData;
+                }
+              }
+            }
+          }
+        }
+
+        resolve(data)
+      })
       .catch(reject)
     })
   }

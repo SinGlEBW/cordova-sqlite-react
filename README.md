@@ -53,7 +53,7 @@
     */
 
 
-    Sqlite.getData(nameTable, { where, whereKey, ignoreWhere, stringWhere, condition })
+    Sqlite.getData(nameTable, { where, whereKey, ignoreWhere, stringWhere, condition }, isParse)
 
     Sqlite.removeData(nameTable, { where, whereKey, ignoreWhere, stringWhere, condition })
 
@@ -95,10 +95,44 @@
       promise -> {
         msg: "Данные найдены",
         status: true,
-        values: (11) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+        values: [
+          {
+            id: 1,
+            key: "listNames",
+            createdAt: "2023-02-07 14:03:23",
+            updateAt: "2023-02-13 09:59:03",
+            value: "[{\"name\":\"Jon\"}, {\"name\":\"Brain\"}]"
+          },
+           {
+            id: 2,
+            key: "listCity",
+            createdAt: "2023-02-07 14:03:23",
+            updateAt: "2023-02-13 09:59:03",
+            value: "[{\"city\":\"New York\"}, {\"city\":\"California\"}]"
+          },
+          ...
+        ]
+      } 
+    */
+
+    Sqlite.getData('Test', {where: {key: 'listNames'}}, true) //SELECT * FROM Test WHERE key = 'listNames'
+    /* 
+      promise -> {
+        msg: "Данные найдены",
+        status: true,
+        values: [
+          {
+            id: 1,
+            key: "listNames",
+            createdAt: "2023-02-07 14:03:23",
+            updateAt: "2023-02-13 09:59:03",
+            value: [ {name: "Jon"}, {name: "Brain"} ] <-- isParse
+          }
+        ]
       } 
     */
     
+ 
 
     Sqlite.dropTable(nameTable)
 
