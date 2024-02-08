@@ -21,7 +21,7 @@ export const removeDataSqlite:remoteDataSqliteT = (connect, nameTable, param) =>
       },
       () => { 
         let msg = `Успешная транзакция removeDataSqlite. ${nameTable}`;
-        console.log(msg);
+       
       }
     )
   })

@@ -33,7 +33,7 @@ export const checkTableSqlite:commonFunctionSqliteT = (connect, nameTable) => {
         )
       },
       (err) => { reject({status: false, msg: `Ошибка транзакции checkTable: ${err}`}) },    
-      () => { console.log('Успешная транзакция checkTable') }
+      () => {  }
     )
   })
 }

@@ -80,7 +80,6 @@ SLStore.getItem = (key) => {
             try {
                 let data = {};
                 let item = (0, helpers_1.convertByTypeFromDB)(localStorage.getItem(key));
-                // console.log(item);
                 if (item) {
                     Object.assign(data, { [key]: item });
                     resolve({ status: true, data, msg: 'Данные из localStorage' });
@@ -106,10 +105,7 @@ SLStore.getItems = (options) => {
                 SLStore.helperTotalData({ status, values, totalData: data });
                 resolve({ status, data, msg });
             })
-                .catch((err) => {
-                console.log('catch SLStore.getItems: ', err);
-                reject(err);
-            });
+                .catch(reject);
         }
         else {
             try {
@@ -148,8 +144,6 @@ SLStore.removeItem = (options) => {
         //   }
         // }
         options && Object.entries(options).forEach(([key, value]) => { payloadOptions[init[key]] = { key: Array.isArray(value) ? value : [] }; });
-        // console.log('options', options);
-        // console.log('payloadOptions', payloadOptions);
         if (window.cordova) {
             Sqlite_1.Sqlite.removeData(SLStore.nameTable, payloadOptions)
                 .then(resolve)

@@ -6,14 +6,14 @@ export  const getDataSqlite:getDataSqliteT = (connect, nameTable, params) => {
   return new Promise((resolve, reject) => {
 
     connect.transaction(
-      (tx) => {      console.log(`getDataSqlite: >> Проверка таблицы: ${nameTable}`);
+      (tx) => {     
         tx.executeSql(`SELECT name FROM sqlite_master WHERE type='table' AND name='${nameTable}'`, [],
           (tx, res) => {
             let isTables = res.rows.item(0) && res.rows.item(0).name === nameTable; 
 
-            if(isTables){      console.log(`getDataSqlite: >> запрашиваем данные`);
+            if(isTables){      
               let { newSQLString, arrValuesPayload } = generateSQLSelect(nameTable, params)
-              // console.log('newSQLString', newSQLString);
+            
               tx.executeSql(newSQLString, (arrValuesPayload as any[]).length ? arrValuesPayload : [], //arrValuesPayload будет если заполнен where
                 (tx, res) => { 
                   let values:any[] = [];
@@ -35,8 +35,8 @@ export  const getDataSqlite:getDataSqliteT = (connect, nameTable, params) => {
           (tx, err) => console.error(err)
         ); 
       },
-      (error) => { console.log('Ошибка транзакции в getDataSqlite: '); reject({status: false, msg: error}); }, 
-      () => { console.log('Успех транзакции getDataSqlite');  }
+      (error) => { reject({status: false, msg: error}); }, 
+      () => {   }
     )
   })
 }

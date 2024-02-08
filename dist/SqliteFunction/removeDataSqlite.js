@@ -13,7 +13,6 @@ const removeDataSqlite = (connect, nameTable, param) => {
             reject({ status: false, msg });
         }, () => {
             let msg = `Успешная транзакция removeDataSqlite. ${nameTable}`;
-            console.log(msg);
         });
     });
 };

@@ -20,10 +20,6 @@ const generateSQLInsertInto = (nameTable, payload) => {
             countBracket++;
             for (let key in payload) {
                 totalNewSqlSrt += `${key},`;
-                // LOG && (
-                //   console.log(`generateSQLInsertInto >>>>>>>: ${key}:`),  
-                //   console.log(payload[key])
-                // );
                 let val = (0, helpers_1.convertByTypeForDB)(payload[key]);
                 arrTotalValuesPayload.push(val);
             }

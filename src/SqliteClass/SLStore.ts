@@ -92,7 +92,7 @@ export class SLStore {
           let data: {[key: string]: any} = {};
 
           let item = convertByTypeFromDB(localStorage.getItem(key as string));
-          // console.log(item);
+        
           if(item){
             Object.assign(data, {[key]: item});
             resolve({status: true, data, msg: 'Данные из localStorage'});
@@ -122,10 +122,7 @@ export class SLStore {
           SLStore.helperTotalData({status, values, totalData: data});
           resolve({status, data, msg});
         })
-        .catch((err) => {
-          console.log('catch SLStore.getItems: ', err);
-          reject(err)
-        })
+        .catch(reject)
       }else{
         try {
           let data: {[key: string]: any} = {};
@@ -169,8 +166,7 @@ export class SLStore {
       //   }
       // }
       options && Object.entries(options).forEach(([key, value]) => { payloadOptions[init[key]] = {key: Array.isArray(value) ? value : []} })
-      // console.log('options', options);
-      // console.log('payloadOptions', payloadOptions);
+
       if(window.cordova){
         Sqlite.removeData( SLStore.nameTable, payloadOptions )
         .then(resolve)

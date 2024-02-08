@@ -59,7 +59,6 @@ export const createGenerateSqlString = (chunkSQL:chunkSQLT) => {
       total.defaultSqlStr += ` ${stringWhere}`;
     }else if(whereKey && Object.keys(whereKey).length){
       whereTotalHelpers({ob: whereKey, total , condition, ignoreWhere, checkOptions}, ignoreForWhereKey)
-      console.log('Передан whereKey');
       checkOptions++;
     }else if(where && Object.keys(where).length){
       checkOptions++;

@@ -6,13 +6,10 @@ const generateSELECT_1 = require("./../stringSQL/generateSELECT");
 const getDataSqlite = (connect, nameTable, params) => {
     return new Promise((resolve, reject) => {
         connect.transaction((tx) => {
-            console.log(`getDataSqlite: >> Проверка таблицы: ${nameTable}`);
             tx.executeSql(`SELECT name FROM sqlite_master WHERE type='table' AND name='${nameTable}'`, [], (tx, res) => {
                 let isTables = res.rows.item(0) && res.rows.item(0).name === nameTable;
                 if (isTables) {
-                    console.log(`getDataSqlite: >> запрашиваем данные`);
                     let { newSQLString, arrValuesPayload } = (0, generateSELECT_1.generateSQLSelect)(nameTable, params);
-                    // console.log('newSQLString', newSQLString);
                     tx.executeSql(newSQLString, arrValuesPayload.length ? arrValuesPayload : [], //arrValuesPayload будет если заполнен where
                     (tx, res) => {
                         let values = [];
@@ -31,7 +28,7 @@ const getDataSqlite = (connect, nameTable, params) => {
                 }
                 resolve({ status: false, values: [], msg: 'Таблицы нет' });
             }, (tx, err) => console.error(err));
-        }, (error) => { console.log('Ошибка транзакции в getDataSqlite: '); reject({ status: false, msg: error }); }, () => { console.log('Успех транзакции getDataSqlite'); });
+        }, (error) => { reject({ status: false, msg: error }); }, () => { });
     });
 };
 exports.getDataSqlite = getDataSqlite;

@@ -21,11 +21,7 @@ export const generateSQLInsertInto = (nameTable: string, payload: object): {arrV
       for(let key in payload){
         totalNewSqlSrt += `${key},`;
         
-        // LOG && (
-        //   console.log(`generateSQLInsertInto >>>>>>>: ${key}:`),  
-        //   console.log(payload[key])
-        // );
-
+   
         let val = convertByTypeForDB(payload[key]);
         arrTotalValuesPayload.push(val);
       }
