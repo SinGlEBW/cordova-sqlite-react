@@ -24,7 +24,7 @@ const Sqlite_1 = require("./Sqlite");
 class SLStore {
 }
 exports.SLStore = SLStore;
-SLStore.nameTable = process.env.REACT_APP_SQLITE_TABLE_SETTINGS;
+SLStore.nameTable = 'localStorage';
 SLStore.helperTotalData = ({ status, values, totalData }) => {
     if (status && (values === null || values === void 0 ? void 0 : values.length)) {
         for (let i = 0; i < values.length; i++) {
@@ -198,4 +198,3 @@ SLStore.dropAllData = () => {
         }
     });
 };
-window.SLStore = SLStore;

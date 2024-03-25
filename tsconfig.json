@@ -8,26 +8,6 @@
 
     "declaration": true,
     "declarationDir": "./dist/@types",
-    // "typeRoots": ["./src/common.d.ts"]
-  
-    
-    // "sourceMap": true,
-    
-    
-    // "allowJs": true,
-		// "noImplicitThis": false,
-    // "noImplicitAny": false,//отключает выдачу ошибок когда type не определён
-    // "skipLibCheck": true,//как минимум в global не будет ошибки
-    // "esModuleInterop": true,
-    // "allowSyntheticDefaultImports": true,
-    // "strict": true,
-    // "forceConsistentCasingInFileNames": true,
-    // "noFallthroughCasesInSwitch": true,
-    
-    // "moduleResolution": "node",
-    // "resolveJsonModule": true,
-    // "isolatedModules", "@types": true,
-    // "noEmit": true,
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

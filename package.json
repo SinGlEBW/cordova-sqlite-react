@@ -1,12 +1,12 @@
 {
  "name": "cordova-sqlite-react",
  "author": "SinGlEBW",
- "version": "1.1.48",
+ "version": "1.1.49",
  "description": "",
  "main": "./dist/index.js",
  "types": "./dist/@types/index.d.ts",
  "scripts": {
-  "tsc": "node ./autoEditVersion.js && rm -rf ./dist/* && tsc && cp ./src/common.d.ts ./dist/@types/ && git add . && git ct -m update && git push && npm publish"
+  "build": "node ./autoEditVersion.js && rm -rf ./dist/* && tsc && cp ./src/common.d.ts ./dist/@types/ && git add . && git ct -m update && git push && npm publish"
  },
  "devDependencies": {
   "@types/node": "^17.0.10"

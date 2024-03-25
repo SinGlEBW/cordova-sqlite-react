@@ -1,12 +1,5 @@
 ## The library is under development and is updated and corrected as needed!
 
-###### Create a .env file in the root of the project
-```env
-
-  REACT_APP_SQLITE_DB_NAME = 'arm.db'
-  REACT_APP_SQLITE_TABLE_SETTINGS = 'Config'  # for using class SLStore
-```
-
 
 ```js
     import { SLStore, Sqlite } from 'cordova-sqlite-react';
@@ -16,8 +9,8 @@
 ###### return Promise: Example
 
 ```js
-
-    Sqlite.openDB()/*default   (nameDbSqlite = (process.env.REACT_APP_SQLITE_DB_NAME as string) || 'default.db')  */
+    
+    Sqlite.openDB()
     Sqlite.closeDB()
 
     Sqlite.checkTable()//All tables.  { status: true, msg: 'Список найденных таблиц', tables }

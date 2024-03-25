@@ -1,7 +1,7 @@
 import { getDataT, setDataT, remoteDataT, updateDataT, commonMethodSqliteT } from './../common';
 export declare class Sqlite {
     private static isCreateDate;
-    static openDB: (nameDbSqlite?: string) => import("./../common").SQLitePlugin.Database;
+    static openDB: () => import("./../common").SQLitePlugin.Database;
     static closeDB: () => any;
     static query: (sql: any) => Promise<unknown>;
     static checkTable: commonMethodSqliteT;

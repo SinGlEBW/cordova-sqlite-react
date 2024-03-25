@@ -20,7 +20,7 @@ const getStatusAndDataJson = (str) => {
 
 export class Sqlite {
   private static isCreateDate = true; 
-  static openDB = (nameDbSqlite?: string) => openDbSqlite(nameDbSqlite)
+  static openDB = () => openDbSqlite()
   static closeDB = () => window.db ? window.db.close() : console.log('Не возможно закрыть базу');
   
   static query = (sql) => {

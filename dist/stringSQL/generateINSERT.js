@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateSQLInsertInto = void 0;
 const helpers_1 = require("../helpers");
-let LOG = process.env.REACT_APP_LOG;
 const generateSQLInsertInto = (nameTable, payload) => {
     let arrTotalValuesPayload = [];
     let totalNewSqlSrt = '';

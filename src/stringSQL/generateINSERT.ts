@@ -1,6 +1,6 @@
 import { convertByTypeForDB } from '../helpers';
 
-let LOG = process.env.REACT_APP_LOG;
+
 
 export const generateSQLInsertInto = (nameTable: string, payload: object): {arrValuesPayload: any[], newSQLInsert: string} => {
   let arrTotalValuesPayload:any[] = [];

@@ -18,7 +18,7 @@ class Sqlite {
 }
 exports.Sqlite = Sqlite;
 Sqlite.isCreateDate = true;
-Sqlite.openDB = (nameDbSqlite) => (0, SqliteFunction_1.openDbSqlite)(nameDbSqlite);
+Sqlite.openDB = () => (0, SqliteFunction_1.openDbSqlite)();
 Sqlite.closeDB = () => window.db ? window.db.close() : console.log('Не возможно закрыть базу');
 Sqlite.query = (sql) => {
     return new Promise((resolve, reject) => {

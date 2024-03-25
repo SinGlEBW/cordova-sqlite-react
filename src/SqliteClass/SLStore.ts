@@ -26,7 +26,7 @@ import { Sqlite } from './Sqlite';
 
 //LocalStorage но на sqlite
 export class SLStore {
-  static nameTable = process.env.REACT_APP_SQLITE_TABLE_SETTINGS as string | 'localStorage';
+  static nameTable = 'localStorage';
   private static helperTotalData = ({status, values, totalData}) => {
 
     if(status && values?.length){
@@ -223,10 +223,10 @@ export class SLStore {
       }
     })
   };
-
+  
 }
 
 
-(window as any).SLStore = SLStore
+
 
 
