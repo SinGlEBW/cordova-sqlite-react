@@ -126,9 +126,15 @@ export class SLStore {
       }else{
         try {
           let data: {[key: string]: any} = {};
-
+          const isIgnoreKeys = options?.ignoreKeys?.length;
           for(let i = 0; i < localStorage.length; i++) {
             let keyItem = localStorage.key(i);
+            
+            if(isIgnoreKeys){
+              if(options?.ignoreKeys?.includes(keyItem)){
+                continue;
+              }
+            }
             if(keyItem){
               let value = convertByTypeFromDB(localStorage.getItem(keyItem));
               Object.assign(data, {[keyItem]: value});

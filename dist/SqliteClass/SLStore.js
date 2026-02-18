@@ -96,6 +96,7 @@ SLStore.getItem = (key) => {
 /*-----------------------------------------------------------------------------------------------------*/
 SLStore.getItems = (options) => {
     return new Promise((resolve, reject) => {
+        var _a, _b;
         if (window.cordova) {
             Sqlite_1.Sqlite.getData(SLStore.nameTable, {
                 ignoreWhere: (options === null || options === void 0 ? void 0 : options.ignoreKeys) ? { key: options === null || options === void 0 ? void 0 : options.ignoreKeys } : {}
@@ -110,8 +111,14 @@ SLStore.getItems = (options) => {
         else {
             try {
                 let data = {};
+                const isIgnoreKeys = (_a = options === null || options === void 0 ? void 0 : options.ignoreKeys) === null || _a === void 0 ? void 0 : _a.length;
                 for (let i = 0; i < localStorage.length; i++) {
                     let keyItem = localStorage.key(i);
+                    if (isIgnoreKeys) {
+                        if ((_b = options === null || options === void 0 ? void 0 : options.ignoreKeys) === null || _b === void 0 ? void 0 : _b.includes(keyItem)) {
+                            continue;
+                        }
+                    }
                     if (keyItem) {
                         let value = (0, helpers_1.convertByTypeFromDB)(localStorage.getItem(keyItem));
                         Object.assign(data, { [keyItem]: value });
