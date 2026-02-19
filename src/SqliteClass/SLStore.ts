@@ -108,7 +108,6 @@ export class SLStore {
   }
 
   /*-----------------------------------------------------------------------------------------------------*/
-
   static getItems:getItemsT = (options) => {
     
     return new Promise((resolve, reject) => {
