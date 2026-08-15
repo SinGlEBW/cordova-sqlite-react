@@ -1,7 +1,7 @@
 {
  "name": "cordova-sqlite-react",
  "author": "SinGlEBW",
- "version": "1.1.56-beta.2",
+ "version": "1.1.NaN",
  "description": "",
  "main": "./dist/index.js",
  "types": "./dist/@types/index.d.ts",
@@ -23,6 +23,6 @@
   "cordova-sqlite"
  ],
  "peerDependencies": {
-  "cordova-sqlite-storage": "^6.0.0"
+  "cordova-sqlite-storage": ">=6.0.0 <8.0.0"
  }
 }

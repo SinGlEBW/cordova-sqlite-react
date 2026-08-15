@@ -1,5 +1,5 @@
 ## The library is under development and is updated and corrected as needed!
-
+### Пакет устарел. Используйте dev-react-cordova
 
 ```js
     import { SLStore, Sqlite } from 'cordova-sqlite-react';

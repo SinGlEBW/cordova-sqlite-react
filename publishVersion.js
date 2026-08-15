@@ -31,3 +31,4 @@ try {
   console.log('Check full error log for details');
   process.exit(1);
 }
+
