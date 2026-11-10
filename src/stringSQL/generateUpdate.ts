@@ -2,7 +2,7 @@ import { UpdateWhere } from './../common';
 import { convertByTypeForDB } from '../helpers';
 
 
-export const generateSQLUpdate = (nameTable: string, payload: object, {where, condition, stringWhere}:UpdateWhere, isUpdateAt: boolean): {arrValuesPayload: any[], newSQLUpdate: string} => {
+export const generateSQLUpdate = (nameTable: string, payload: any, {where, condition, stringWhere}:UpdateWhere, isUpdateAt: boolean): {arrValuesPayload: any[], newSQLUpdate: string} => {
   
   let arrTotalValuesPayload:any[] = [];
   let defaultSqlStr = `UPDATE ${nameTable} SET `;

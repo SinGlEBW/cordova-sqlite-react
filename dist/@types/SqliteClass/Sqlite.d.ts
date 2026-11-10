@@ -3,7 +3,7 @@ export declare class Sqlite {
     private static isCreateDate;
     static openDB: () => import("./../common").SQLitePlugin.Database;
     static closeDB: () => any;
-    static query: (sql: any) => Promise<unknown>;
+    static query: (sql: string) => Promise<unknown>;
     static checkTable: commonMethodSqliteT;
     static setData: setDataT;
     static updateData: updateDataT;

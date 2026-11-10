@@ -62,12 +62,12 @@ Sqlite.getData = (nameTable, params, isParse = false) => {
             if (isParse) {
                 if (data.values.length) {
                     for (let i = 0; i < data.values.length; i++) {
-                        let ob = data.values[i];
+                        const ob = data.values[i];
                         for (let [key, value] of Object.entries(ob)) {
                             if (['createdAt', 'updateAt', 'id'].includes(key)) {
                                 continue;
                             }
-                            let [isJson, parseData] = getStatusAndDataJson(value);
+                            const [isJson, parseData] = getStatusAndDataJson(value);
                             if (isJson) {
                                 data.values[i][key] = parseData;
                             }

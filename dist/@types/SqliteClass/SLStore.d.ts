@@ -1,9 +1,9 @@
-import { dropAllData } from './../common.d';
-import { setItemT, getItemT, remoteItemT, getItemsT } from './../common';
+import { dropAllData } from "./../common.d";
+import { setItemT, getItemT, remoteItemT, getItemsT } from "./../common";
 export declare class SLStore {
     static nameTable: string;
     private static helperTotalData;
-    static setNameTableSettings: (nameTable: any) => any;
+    static setNameTableSettings: (nameTable: string) => string;
     static setItem: setItemT;
     static getItem: getItemT;
     static getItems: getItemsT;

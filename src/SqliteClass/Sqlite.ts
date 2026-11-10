@@ -11,7 +11,7 @@ interface SqliteConstructor {
   column: {[key: string]: "ID" | "TEXT" | "INTEGER"};
 };
 
-const getStatusAndDataJson = (str) => {
+const getStatusAndDataJson = (str: string) => {
   let data = null;
   try { data = JSON.parse(str); } 
   catch (e) { return [false, data]; }
@@ -23,7 +23,7 @@ export class Sqlite {
   static openDB = () => openDbSqlite()
   static closeDB = () => window.db ? window.db.close() : console.log('Не возможно закрыть базу');
   
-  static query = (sql) => {
+  static query = (sql: string) => {
     return new Promise((resolve, reject) => {
       querySqlite(Sqlite.openDB(), sql)
       .then(resolve)
@@ -72,14 +72,14 @@ export class Sqlite {
         if(isParse){
           if(data.values.length){
             for(let i = 0; i < data.values.length; i++){
-              let ob = data.values[i];
+              const ob = data.values[i];
               for(let [key, value] of Object.entries(ob)){
                 if(['createdAt', 'updateAt', 'id'].includes(key)){
                   continue;
                 }
-                let [isJson, parseData] = getStatusAndDataJson(value);
+                const [isJson, parseData] = getStatusAndDataJson(value as string);
                 if(isJson){
-                  data.values[i][key] = parseData;
+                  (data.values as any)[i][key] = parseData;
                 }
               }
             }
